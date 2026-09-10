@@ -7,10 +7,10 @@ Windows ONLY
 🇬🇧
 A launcher with a PS2-style interface—still under development. I plan to add a music player in future updates.
 
-Cross - Enter
-Circle - Esc
-Triangle - Tab
-Start - Space
-L1 - Del
+	Cross - Enter
+	Circle - Esc
+	Triangle - Tab
+	Start - Space
+	L1 - Del
 
 Telegram: t.me/w3bc0r3f0und3r
