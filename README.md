@@ -1,12 +1,12 @@
 # PS2-Webcore-Launcher
 Windows ONLY
 
-🇷🇺
+	🇷🇺
 Лаунчер с интерфейсом в стиле пс2.
-🇬🇧
+	🇬🇧
 A launcher with a PS2-style interface.
 
-*0.0.2*
+# *0.0.2*
 + музыкальный плеер / music player
 + музыкальные эффекты в меню конфигурации / music effects in config menu
 
