@@ -2,10 +2,15 @@
 Windows ONLY
 
 🇷🇺
-Лаунчер с интерфейсом в стиле пс2, все еще в разработке. В последующих обновлениях собираюсь добавить музыкальный плеер.
-
+Лаунчер с интерфейсом в стиле пс2.
 🇬🇧
-A launcher with a PS2-style interface—still under development. I plan to add a music player in future updates.
+A launcher with a PS2-style interface.
+
+*0.0.2*
++ музыкальный плеер / music player
++ музыкальные эффекты в меню конфигурации / music effects in config menu
+В следующих обновлениях собираюсь добавить Video Channel для просмотра видео, и часы в меню конфигурации как на пс2
+In future updates, I plan to add a Video Channel for watching videos, as well as a clock in the configuration menu, just like on the PS2.
 
 	Cross - Enter
 	Circle - Esc
