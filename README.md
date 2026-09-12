@@ -4,12 +4,22 @@ Windows ONLY
 Лаунчер с интерфейсом в стиле пс2.
 A launcher with a PS2-style interface.
 
-# *0.0.2*
-+ музыкальный плеер / music player
-+ музыкальные эффекты в меню конфигурации / music effects in config menu
+# *0.0.3*
 
-*В следующих обновлениях собираюсь добавить Video Channel для просмотра видео, и часы в меню конфигурации как на пс2.
-*In future updates, I plan to add a Video Channel for watching videos, as well as a clock in the configuration menu, just like on the PS2.
+🇷🇺
++ добавлены часы как в пс2, работают в реальном времени
++ добавлена настройка выбора интро
++ добавлено интро приближенное к оригиналу
++ добавлен экран запуска диска PlayStation 2
++ более стеклянные кубы
+
+🇬🇧
++ ps2 original clock, works in real time
++ intro setting
++ intro similar to og
++ PlayStation 2 launching screen when running a game
++ cubes are more glassy now
+
 
 	Cross - Enter
 	Circle - Esc
