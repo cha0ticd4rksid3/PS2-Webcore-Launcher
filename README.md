@@ -4,21 +4,21 @@ Windows ONLY
 Лаунчер с интерфейсом в стиле пс2.
 A launcher with a PS2-style interface.
 
-# *0.0.3*
+# *0.0.4*
 
 🇷🇺
-+ добавлены часы как в пс2, работают в реальном времени
-+ добавлена настройка выбора интро
-+ добавлено интро приближенное к оригиналу
-+ добавлен экран запуска диска PlayStation 2
-+ более стеклянные кубы
+
++ решена проблема с оптимизацией на устройствах среднего сегмента.
++ добавлено 3 новых интро.
++ добавлен RedScreenOfDeath при ошибке запуска.
++ исправлены баги
 
 🇬🇧
-+ ps2 original clock, works in real time
-+ intro setting
-+ intro similar to og
-+ PlayStation 2 launching screen when running a game
-+ cubes are more glassy now
+
++ Fixed optimization issues on mid-range devices.
++ Added 3 new intro intro.
++ Added a "Red Screen of Death".
++ fixed bugs
 
 
 	Cross - Enter
