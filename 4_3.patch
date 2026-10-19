@@ -1,0 +1,20 @@
+# === FAKE 4:3 ASPECT ===
+host.get_node("menu1/Label3").text = host.get_node("menu1/Label3").text + '\n4:3 FAKE ASPECT'
+
+var factor = 0.75
+host.get_node("menu1").scale = Vector2(factor, 1.0)
+host.get_node("version-details").scale = Vector2(factor, 1.0)
+host.get_node("menu2").scale = Vector2(factor, 1.0)
+host.get_node("menu3").scale = Vector2(factor, 1.0)
+host.get_node("menu4").scale = Vector2(factor, 1.0)
+host.get_node("menu5").scale = Vector2(factor, 1.0)
+host.get_node("details_menu").scale = Vector2(factor, 1.0)
+host.get_node("music_menu").scale = Vector2(factor, 1.0)
+host.get_node("sysconfmenu").scale = Vector2(factor, 1.0)
+host.get_node("browser").scale = Vector2(factor, 1.0)
+host.get_node("intro-sprite").scale = Vector2(factor, 1.0)
+host.get_node("RUN_GAME_VIDEO").scale = Vector2(factor, 1.0)
+host.get_node("INTRO_VIDEO").scale = Vector2(factor, 1.0)
+host.get_node("orbs").scale = Vector2(factor, 1.0)
+var orbpos: Vector2 = host.get_node("orbs").position
+host.get_node("orbs").position = Vector2(orbpos.x + 200.0, orbpos.y)

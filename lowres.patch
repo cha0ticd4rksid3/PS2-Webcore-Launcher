@@ -1,0 +1,8 @@
+# === LOWER RESOLUTION ===
+var factor = 0.29  # 1.0 full 2K, 0.5 half of it
+get_viewport().scaling_3d_mode = Viewport.SCALING_3D_MODE_BILINEAR
+get_viewport().scaling_3d_scale = factor
+host.get_node("memc").scaling_3d_scale = factor
+host.get_node("cubes").scaling_3d_scale = factor
+host.get_node("INTRO_PORT").scaling_3d_scale = factor
+host.get_node("cube-sub").scaling_3d_scale = factor

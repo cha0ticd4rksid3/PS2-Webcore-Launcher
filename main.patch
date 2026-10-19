@@ -1,0 +1,114 @@
+# host.block_downloads = true  # block downloading wallpapers, covers, logo
+# host.enable_controller_led = false  # uncomment if your controller not working
+# DisplayServer.window_set_current_screen(0)  # set display (0 - primary, 1 - secondary display)
+
+# === WINDOWED MODE ===
+# DisplayServer.window_set_max_size(Vector2(1280, 720))
+# DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+# get_window().content_scale_size = Vector2i(1280, 720)
+# get_window().content_scale_factor = 0.5
+# get_window().content_scale_mode = Window.CONTENT_SCALE_MODE_VIEWPORT
+# get_window().content_scale_aspect = Window.CONTENT_SCALE_ASPECT_KEEP
+# get_window().content_scale_stretch = Window.CONTENT_SCALE_STRETCH_FRACTIONAL
+
+# === LOWER RESOLUTION ===
+# var factor = 0.29  # 1.0 full 2K, 0.5 half of it
+# get_viewport().scaling_3d_mode = Viewport.SCALING_3D_MODE_BILINEAR
+# get_viewport().scaling_3d_scale = factor
+# host.get_node("memc").scaling_3d_scale = factor
+# host.get_node("cubes").scaling_3d_scale = factor
+# host.get_node("INTRO_PORT").scaling_3d_scale = factor
+# host.get_node("cube-sub").scaling_3d_scale = factor
+
+# === FAKE 4:3 ASPECT ===
+# host.get_node("menu1/Label3").text = host.get_node("menu1/Label3").text + '\n4:3 FAKE ASPECT'
+
+# var factor = 0.75
+# host.get_node("menu1").scale = Vector2(factor, 1.0)
+# host.get_node("version-details").scale = Vector2(factor, 1.0)
+# host.get_node("menu2").scale = Vector2(factor, 1.0)
+# host.get_node("menu3").scale = Vector2(factor, 1.0)
+# host.get_node("menu4").scale = Vector2(factor, 1.0)
+# host.get_node("menu5").scale = Vector2(factor, 1.0)
+# host.get_node("details_menu").scale = Vector2(factor, 1.0)
+# host.get_node("music_menu").scale = Vector2(factor, 1.0)
+# host.get_node("sysconfmenu").scale = Vector2(factor, 1.0)
+# host.get_node("browser").scale = Vector2(factor, 1.0)
+# host.get_node("intro-sprite").scale = Vector2(factor, 1.0)
+# host.get_node("RUN_GAME_VIDEO").scale = Vector2(factor, 1.0)
+# host.get_node("INTRO_VIDEO").scale = Vector2(factor, 1.0)
+# host.get_node("orbs").scale = Vector2(factor, 1.0)
+# var orbpos: Vector2 = host.get_node("orbs").position
+# host.get_node("orbs").position = Vector2(orbpos.x + 200.0, orbpos.y)
+
+# == FREEBOOT ==
+host.freeboot = true
+var your_name = 'Chaotic' # change to your name
+host.get_node("menu1/Label3").text = host.get_node("menu1/Label3").text + '\nFREEBOOT by ' + your_name
+
+host.freeboot_checkbox_defs = [
+	{
+		"label": "Controller LED",
+		"description": "Uncheck if your controller not working",
+		"var": "enable_controller_led",
+		"on": true, "off": false
+	},
+	{
+		"label": "Windowed Mode",
+		"description": "1280x720 window, content scaled",
+		"var": "windowed_mode",
+		"on": true, "off": false
+	},
+	{
+		"label": "Low Resolution",
+		"description": "For weak PCs",
+		"var": "lowres_enabled",
+		"on": true, "off": false
+	}
+]
+
+host.freeboot_lineedit_defs = [
+	{
+		"label": "LowRes factor",
+		"description": "1.0 = full 2K, 0.5 = half (used only if LowRes is ON)",
+		"var": "lowres_factor",
+		"placeholder": "0.5"
+	},
+	{
+		"label": "Display",
+		"description": "Monitor index (0 = primary, 1 = secondary …)",
+		"var": "target_display",
+		"placeholder": "0"
+	}
+]
+
+host.freeboot_code_def = {
+	"description": "Patch Code",
+	"placeholder": "…",
+	"default": "\n".join([
+		"# PROVIDED BY CHAOTIC DEV",
+		"var disp := int(host.target_display) if host.target_display.is_valid_int() else 0",
+		"if disp < DisplayServer.get_screen_count():",
+		"\tDisplayServer.window_set_current_screen(disp)",
+		"",
+		"if host.windowed_mode:",
+		"\tDisplayServer.window_set_max_size(Vector2i(1280, 720))",
+		"\tDisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)",
+		"\tget_window().content_scale_size = Vector2i(1280, 720)",
+		"\tget_window().content_scale_factor = 0.5",
+		"\tget_window().content_scale_mode = Window.CONTENT_SCALE_MODE_VIEWPORT",
+		"\tget_window().content_scale_aspect = Window.CONTENT_SCALE_ASPECT_KEEP",
+		"\tget_window().content_scale_stretch = Window.CONTENT_SCALE_STRETCH_FRACTIONAL",
+		"",
+		"var factor := float(host.lowres_factor) if host.lowres_factor.is_valid_float() else 1.0",
+		"if not host.lowres_enabled:",
+		"\tfactor = 1.0",
+		"factor = clampf(factor, 0.1, 1.0)",
+		"get_viewport().scaling_3d_mode = Viewport.SCALING_3D_MODE_BILINEAR",
+		"get_viewport().scaling_3d_scale = factor",
+		"host.get_node(\"memc\").scaling_3d_scale = factor",
+		"host.get_node(\"cubes\").scaling_3d_scale = factor",
+		"host.get_node(\"INTRO_PORT\").scaling_3d_scale = factor",
+		"host.get_node(\"cube-sub\").scaling_3d_scale = factor"
+	])
+}
