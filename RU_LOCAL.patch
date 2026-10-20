@@ -1,0 +1,79 @@
+# == LOCALIZATION ==
+host.get_node("menu1/browser").text = 'Браузер'
+host.get_node("menu1/sysconf").text = 'Конфигурация системы' 
+host.get_node("menu1/psbbn").text = 'PSBBNavigator' 
+host.get_node("menu2/setting2").text = 'Конфигурация системы'
+host.get_node("menu3/hint").text = 'Установить Диск\n\nИзвлечь Диск\n\nОбновить\n\nДинамическое Следование' 
+host.get_node("menu4/hint2").text = 'Добавить Аудио\n\nСтереть Аудио' 
+host.get_node("menu5/hint").text = 'Нет Данных.'
+host.get_node("details_menu/PlayOption").text = 'Играть' 
+host.get_node("details_menu/EjectOption").text = 'Извлечь' 
+host.get_node("reading").text = 'Чтение...' 
+host.get_node("ejecting").text = 'Извлечение...' 
+
+# === LOCALIZATION REAL-TIME ===
+var _loc_source := ""
+_loc_source += "extends Node\n"
+_loc_source += "var host_ref: Node\n"
+_loc_source += "const MAP := {\n"
+_loc_source += "\t'AV Filter': 'AV Фильтр',\n"
+_loc_source += "\t'Sounds UI': 'Звуки Интерфейса',\n"
+_loc_source += "\t'Music Effect': 'Аудио Эффект',\n"
+_loc_source += "\t'Intro': 'Экран Запуска',\n"
+_loc_source += "\t'Off': 'Выкл',\n"
+_loc_source += "\t'On': 'Вкл',\n"
+_loc_source += "\t'None': 'Выкл',\n"
+_loc_source += "\t'Slowed&Reverb': 'Slowed&Reverb',\n"
+_loc_source += "\t'SpeedUp': 'Ускоренный',\n"
+_loc_source += "\t'LowPass': 'Шумные Соседи',\n"
+_loc_source += "\t'Skip': 'Пропустить',\n"
+_loc_source += "\t'SimilarToOG': 'Кубы',\n"
+_loc_source += "\t'Elevator': 'Лифт',\n"
+_loc_source += "\t'Flash In': 'Вспышка',\n"
+_loc_source += "\t'From Ads': 'Из Рекламы',\n"
+_loc_source += "\t'DreamCast': 'DreamCast',\n"
+_loc_source += "\t'FlashBack excl.': 'Флешбэк',\n"
+_loc_source += "\t'PS2': 'PS2',\n"
+_loc_source += "\t'PSBBN': 'PSBBN',\n"
+_loc_source += "\t'GameCube': 'GameCube',\n"
+_loc_source += "\t'Silent Hill 2': 'Сайлент Хилл 2',\n"
+_loc_source += "\t'Undertale': 'Undertale',\n"
+_loc_source += "\t'GTA: Vice City': 'GTA: Vice City',\n"
+_loc_source += "\t'Shuffle': 'Случайно',\n"
+_loc_source += "\t'Sequential': 'Последовательно',\n"
+_loc_source += "\t'Repeat': 'Повторить',\n"
+_loc_source += "\t'Memory Card (PS2)/1': 'Карта Памяти (PS2)/1',\n"
+_loc_source += "\t'Memory Card (PS2)/2': 'Карта Памяти (PS2)/2',\n"
+_loc_source += "\t'Your System Configuration': 'Конфигурация Системы',\n"
+_loc_source += "}\n"
+_loc_source += "func _process(_delta: float) -> void:\n"
+_loc_source += "\tif host_ref == null:\n"
+_loc_source += "\t\treturn\n"
+_loc_source += "\t_localize('menu2/setting')\n"
+_loc_source += "\t_localize('menu2/option')\n"
+_loc_source += "\t_localize('menu3/setting2')\n"
+_loc_source += "\t_localize('menu4/setting')\n"
+_loc_source += "\t_localize('menu4/setting2')\n"
+_loc_source += "\t_localize('menu5/setting')\n"
+_loc_source += "\t_localize('menu5/setting2')\n"
+_loc_source += "\t_localize('music_menu/setting5')\n"
+_loc_source += "\t_localize('music_menu/mode')\n"
+_loc_source += "\t_localize('music_menu/setting2')\n"
+_loc_source += "func _localize(path: String) -> void:\n"
+_loc_source += "\tvar lbl := host_ref.get_node_or_null(path) as Label\n"
+_loc_source += "\tif lbl == null:\n"
+_loc_source += "\t\treturn\n"
+_loc_source += "\tvar txt := str(lbl.text)\n"
+_loc_source += "\tif MAP.has(txt):\n"
+_loc_source += "\t\tlbl.text = MAP[txt]\n"
+
+var _loc_script := GDScript.new()
+_loc_script.source_code = _loc_source
+_loc_script.reload()
+
+var _loc_watcher := Node.new()
+_loc_watcher.name = "LocalizationWatcher"
+_loc_watcher.process_mode = Node.PROCESS_MODE_ALWAYS
+_loc_watcher.set_script(_loc_script)
+_loc_watcher.set("host_ref", host)
+host.add_child(_loc_watcher)

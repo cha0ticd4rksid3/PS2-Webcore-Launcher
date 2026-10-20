@@ -1,0 +1,85 @@
+host.startup_sound = 'Custom'
+
+# ==== CUSTOM UI SOUNDS ====
+# Впиши пути к своим звукам mp3 ogg wav. Пустая строка "" = оставить оригинал.
+# Пример: "C:/Users/user/sounds/ui_accept.wav"
+# При изменении звуков в настройках, кастомные сбросятся
+#   intro      - в первый раз кастом не проигрывается, так как сохранение загружается первее патча
+#   mainmenu   - фоновая музыка меню
+#   ui-scroll  - прокрутка (основная)
+#   ui-scroll2 - прокрутка (вторичная)
+#   ui-accept  - подтверждение
+#   ui-memc    - вход в mc меню
+#   ui-delete  - удаление
+#   ui-back    - назад
+var custom_ui_sounds := {
+	"intro":       "",
+	"mainmenu":    "",
+	"ui-scroll":   "",
+	"ui-scroll2":  "",
+	"ui-accept":   "",
+	"ui-memc":     "",
+	"ui-delete":   "",
+	"ui-back":     "",
+}
+for _sn in custom_ui_sounds.keys():
+	var _path: String = custom_ui_sounds[_sn]
+	if _path == "":
+		continue
+	var _player = host.get_node_or_null(_sn)
+	if _player == null:
+		print("[ui-sound] NO NODE: ", _sn)
+		continue
+
+	var _p: String = _path.replace("\\", "/")
+	var _stream: AudioStream = null
+	var _source: String = ""
+
+	print("[ui-sound] ", _sn, ": path=", _p,
+		" file_exists=", FileAccess.file_exists(_p),
+		" res_exists=", ResourceLoader.exists(_p))
+
+	if _p.begins_with("res://") and ResourceLoader.exists(_p):
+		var _r = load(_p)
+		if _r is AudioStream:
+			_stream = _r
+			_source = "res:// via load()"
+		else:
+			print("[ui-sound]   load() gave non-AudioStream: ", _r, " type=", typeof(_r))
+
+	if _stream == null and FileAccess.file_exists(_p):
+		var _ext: String = _p.get_extension().to_lower()
+		print("[ui-sound]   ext=", _ext)
+		if _ext == "mp3":
+			var _bytes := FileAccess.get_file_as_bytes(_p)
+			var _b0 := _bytes[0] if _bytes.size() > 0 else -1
+			var _b1 := _bytes[1] if _bytes.size() > 1 else -1
+			var _b2 := _bytes[2] if _bytes.size() > 2 else -1
+			var _b3 := _bytes[3] if _bytes.size() > 3 else -1
+			print("[ui-sound]   mp3 size=", _bytes.size(),
+				" magic=", _b0, " ", _b1, " ", _b2, " ", _b3)
+			var _s := AudioStreamMP3.new()
+			_s.data = _bytes
+			_stream = _s
+			_source = "mp3 raw " + str(_bytes.size()) + "b"
+		elif _ext == "ogg":
+			_stream = AudioStreamOggVorbis.load_from_file(_p)
+			_source = "ogg"
+		elif _ext == "wav":
+			_stream = AudioStreamWAV.load_from_file(_p)
+			_source = "wav"
+		else:
+			print("[ui-sound]   UNSUPPORTED ext: ", _ext)
+
+	if _stream == null:
+		print("[ui-sound] FAILED ", _sn, " at ", _p)
+		continue
+
+	var _len: float = _stream.get_length()
+	print("[ui-sound] OK ", _sn, " via ", _source, " len=", _len)
+	if _len <= 0.0:
+		print("[ui-sound] WARN zero-length — bad file, skip")
+		continue
+
+	_player.stream = _stream
+	print("[ui-sound] ASSIGNED ", _sn)

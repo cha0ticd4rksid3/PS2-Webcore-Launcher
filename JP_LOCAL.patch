@@ -1,0 +1,79 @@
+# == LOCALIZATION ==
+host.get_node("menu1/browser").text = 'ブラウザ'
+host.get_node("menu1/sysconf").text = 'システム構成' 
+host.get_node("menu1/psbbn").text = 'PSBBナビゲーター' 
+host.get_node("menu2/setting2").text = 'システム構成'
+host.get_node("menu3/hint").text = 'インストールディスク\n\nディスクを取り出す\n\n更新\n\nダイナミック・フォロー' 
+host.get_node("menu4/hint2").text = '音楽を追加する\n\n音楽を削除する' 
+host.get_node("menu5/hint").text = 'データなし。'
+host.get_node("details_menu/PlayOption").text = '遊ぶ' 
+host.get_node("details_menu/EjectOption").text = '取り出す' 
+host.get_node("reading").text = '読む...' 
+host.get_node("ejecting").text = '取り出し中…' 
+
+# === LOCALIZATION REAL-TIME ===
+var _loc_source := ""
+_loc_source += "extends Node\n"
+_loc_source += "var host_ref: Node\n"
+_loc_source += "const MAP := {\n"
+_loc_source += "\t'AV Filter': 'AVフィルター',\n"
+_loc_source += "\t'Sounds UI': 'サウンドUI',\n"
+_loc_source += "\t'Music Effect': '音楽エフェクト',\n"
+_loc_source += "\t'Intro': 'イントロ',\n"
+_loc_source += "\t'Off': 'オフ',\n"
+_loc_source += "\t'On': 'オン',\n"
+_loc_source += "\t'None': 'なし',\n"
+_loc_source += "\t'Slowed&Reverb': 'スロー＆リバーブ',\n"
+_loc_source += "\t'SpeedUp': 'スピードアップ',\n"
+_loc_source += "\t'LowPass': 'ローパス',\n"
+_loc_source += "\t'Skip': 'スキップ',\n"
+_loc_source += "\t'SimilarToOG': 'オリジナル風',\n"
+_loc_source += "\t'Elevator': 'エレベーター',\n"
+_loc_source += "\t'Flash In': 'フラッシュイン',\n"
+_loc_source += "\t'From Ads': 'CM風',\n"
+_loc_source += "\t'DreamCast': 'ドリームキャスト',\n"
+_loc_source += "\t'FlashBack excl.': 'FlashBack',\n"
+_loc_source += "\t'PS2': 'PS2',\n"
+_loc_source += "\t'PSBBN': 'PSBBN',\n"
+_loc_source += "\t'GameCube': 'ゲームキューブ',\n"
+_loc_source += "\t'Silent Hill 2': 'サイレントヒル2',\n"
+_loc_source += "\t'Undertale': 'アンダーテール',\n"
+_loc_source += "\t'GTA: Vice City': 'GTA: バイスシティ',\n"
+_loc_source += "\t'Shuffle': 'シャッフル',\n"
+_loc_source += "\t'Sequential': '一連',\n"
+_loc_source += "\t'Repeat': '繰り返す',\n"
+_loc_source += "\t'Memory Card (PS2)/1': 'メモリーカード（PS2）/1',\n"
+_loc_source += "\t'Memory Card (PS2)/2': 'メモリーカード（PS2）/2',\n"
+_loc_source += "\t'Your System Configuration': 'システム構成',\n"
+_loc_source += "}\n"
+_loc_source += "func _process(_delta: float) -> void:\n"
+_loc_source += "\tif host_ref == null:\n"
+_loc_source += "\t\treturn\n"
+_loc_source += "\t_localize('menu2/setting')\n"
+_loc_source += "\t_localize('menu2/option')\n"
+_loc_source += "\t_localize('menu3/setting2')\n"
+_loc_source += "\t_localize('menu4/setting')\n"
+_loc_source += "\t_localize('menu4/setting2')\n"
+_loc_source += "\t_localize('menu5/setting')\n"
+_loc_source += "\t_localize('menu5/setting2')\n"
+_loc_source += "\t_localize('music_menu/setting5')\n"
+_loc_source += "\t_localize('music_menu/mode')\n"
+_loc_source += "\t_localize('music_menu/setting2')\n"
+_loc_source += "func _localize(path: String) -> void:\n"
+_loc_source += "\tvar lbl := host_ref.get_node_or_null(path) as Label\n"
+_loc_source += "\tif lbl == null:\n"
+_loc_source += "\t\treturn\n"
+_loc_source += "\tvar txt := str(lbl.text)\n"
+_loc_source += "\tif MAP.has(txt):\n"
+_loc_source += "\t\tlbl.text = MAP[txt]\n"
+
+var _loc_script := GDScript.new()
+_loc_script.source_code = _loc_source
+_loc_script.reload()
+
+var _loc_watcher := Node.new()
+_loc_watcher.name = "LocalizationWatcher"
+_loc_watcher.process_mode = Node.PROCESS_MODE_ALWAYS
+_loc_watcher.set_script(_loc_script)
+_loc_watcher.set("host_ref", host)
+host.add_child(_loc_watcher)
