@@ -1,7 +1,6 @@
 # PS2 Webcore Launcher (PS2WCL)
-Windows x64 ONLY
 
-A launcher with a PS2-style interface.
+Make your PC a PS2 stylized Media Center.
 
 Controls:
 + Cross = Enter
